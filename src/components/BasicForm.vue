@@ -1,24 +1,35 @@
 <template>
+<div>
+  <!-- Basic Form for users to input the following items -->
     <el-form :model="ruleForm" :rules="rules" ref="ruleForm" class="demo-ruleForm" show="openDialog === false">
+  <!-- Input first name in the form-->
   <el-form-item label="First Name" prop="firstName">
     <el-input v-model="ruleForm.firstName" placeholder="Mia"></el-input>
   </el-form-item>
+  <!-- Input last name in the form -->
     <el-form-item label="Last Name" prop="lastName">
     <el-input v-model="ruleForm.lastName" placeholder="Welsh"></el-input>
   </el-form-item>
+  <!-- Input email in the form -->
       <el-form-item label="Email" prop="email">
     <el-input v-model="ruleForm.email" placeholder="mia.welsh@hotmail.com"></el-input>
   </el-form-item>
+  <!-- Input subject in the form -->
         <el-form-item label="Subject" prop="subject">
     <el-input v-model="ruleForm.subject" placeholder="Subject"></el-input>
   </el-form-item>
+  <!-- Input claim content in the form -->
   <el-form-item label="Claim Content" prop="desc">
     <el-input type="textarea" v-model="ruleForm.desc" placeholder="Insert any additional information here..."></el-input>
   </el-form-item>
+  <!-- user's checkbox to agree -->
       <el-form-item prop="checkBox">
         <el-checkbox label="I agree to the terms" v-model="ruleForm.checkBox"></el-checkbox>
       </el-form-item>
+  <!-- once form is completed, user's must click the submit button -->
       <el-button type="primary" @click="submitForm('ruleForm')">Submit</el-button>
+</el-form>
+<!-- pop up alert message once completed form is submitted -->
       <el-dialog :visible.sync="openDialog">
       <div class="dialog-container">
         <ul>
@@ -37,7 +48,7 @@
         </ul>
       </div>
     </el-dialog>
-</el-form>
+    </div>
 </template>
 
 <script>
@@ -55,6 +66,7 @@ export default {
       }
     };
     return {
+      // following list items
       ruleForm: {
         firstName: "",
         lastName: "",
@@ -63,6 +75,7 @@ export default {
         desc: "",
         checkBox: []
       },
+      // user's textbox to fill in 
         rules: {
           firstName: [
             { required: true, message: 'Please input First Name', trigger: 'blur' },
@@ -80,13 +93,15 @@ export default {
             trigger: "blur"
           }
           ],
+          // user's must check the checkbox to agree
           checkBox: [
             { required: true, message: 'Please agree to the terms', trigger: 'change' }
-          ],
+          ]
+        },
       openDialog: false
-        }
       };
     },
+    // submit button
       methods: {
     submitForm(formName) {
       this.$refs[formName].validate(valid => {
@@ -97,6 +112,7 @@ export default {
         }
       });
     },
+    // resets after submitting
     resetForm(formName) {
       this.$refs[formName].resetFields();
     }
@@ -105,6 +121,9 @@ export default {
 </script>
 
 <style lang="scss">
+
+// style for pop up alert message
+
 .container {
   margin: auto 50px;
 }
